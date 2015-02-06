@@ -1,20 +1,5 @@
 {
 	"selector" : "source.js",
-	"cmd": ["date"],
-	
-	"variants": [
-
-		{"name": "After Effects",
-		"command": ["build_for_after_effects"]
-		},
-		{"name": "Photoshop",
-		"command": ["build_for_photoshop"]
-		},
-		{"name": "Illustrator",
-		"command": ["build_for_illustrator"]
-		},
-		{"name": "InDesing",
-		"command": ["build_for_indesign"]
-		}
-	]
+	"cmd" : ["python", "$packages/ExtendScript/ExtendScript.py $file $packages"],
+	"shell" : "true"
 }

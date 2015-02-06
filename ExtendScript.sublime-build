@@ -1,1 +1,20 @@
-ExtendScript.sublime-build
+{
+	"selector" : "source.js",
+	"cmd": ["date"],
+	
+	"variants": [
+
+		{"name": "After Effects",
+		"command": ["build_for_after_effects"]
+		},
+		{"name": "Photoshop",
+		"command": ["build_for_photoshop"]
+		},
+		{"name": "Illustrator",
+		"command": ["build_for_illustrator"]
+		},
+		{"name": "InDesing",
+		"command": ["build_for_indesign"]
+		}
+	]
+}

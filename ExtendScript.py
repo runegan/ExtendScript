@@ -7,11 +7,6 @@ import subprocess
 import sublime
 import sublime_plugin
 
-script, scriptFile, packages = sys.argv
-
-subprocess.call("echo done", shell=True);
-subprocess.call("arch -x86_64 osascript '%s/ExtendScript/run.scpt' '%s'" %(packages, scriptFile), shell=True)
-
 class ExtendScriptCommand(sublime_plugin.TextCommand):
     
     def init(self):
@@ -95,14 +90,3 @@ class BuildForAfterEffects(ExtendScriptCommand):
         self.init()
         self.copyToSoftwareFolder('ae')
         self.compileEsFile()
-
-
-
-
-
-
-
-
-
-
-

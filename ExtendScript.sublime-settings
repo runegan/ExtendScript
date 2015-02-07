@@ -1,20 +1,15 @@
+// Settings for Extendscript
 {
-  /*
-    Paths to your scripts folders
-  */
+  // Paths to your scripts folders
   "ae_path": "/Applications/Adobe After Effects CC 2014/Scripts/ScriptUI Panels/",
   "ps_path": "/Applications/Adobe Photoshop CC 2014/Scripting/",
   "ai_path": "/Applications/Adobe Illustrator CC 2014/Scripts/",
   "id_path": "/Applications/Adobe InDesign CC 2014/Scripts/",
 
-  /*
-    Will replace every #include statement by the file's content
-  */
+  // Will replace every #include statement by the file's content
   "compile_includes": true,
 
-  /*
-    Will replace `debug = true` for `debug = false`
-  */
+  // Will replace `debug = true` for `debug = false`
   "set_debug_false": true
 
 

@@ -1,18 +1,5 @@
 [
     {
-        "id": "tools",
-        "children":
-        [
-
-            {
-                "id": "Minifier",
-                "caption": "Minify",
-                "command": "minify"
-            }
-
-        ]
-    },
-    {
         "id": "preferences",
         "children":
         [
@@ -22,23 +9,23 @@
                 "children":
                 [
                     {
-                        "caption": "Minifier",
+                        "caption": "ExtendScript",
                         "children":
                         [
                             {
-                                "caption": "Minifier Settings – Default",
+                                "caption": "ExtendScript Settings – Default",
                                 "command": "open_file",
                                 "args":
                                 {
-                                    "file": "${packages}/Minifier/Minifier.sublime-settings"
+                                    "file": "${packages}/ExtendScript/ExtendScript.sublime-settings"
                                 }
                             },
                             {
-                                "caption": "Minifier Settings – User",
+                                "caption": "ExtendScript Settings – User",
                                 "command": "open_file",
                                 "args":
                                 {
-                                    "file": "${packages}/User/Minifier.sublime-settings"
+                                    "file": "${packages}/User/ExtendScript.sublime-settings"
                                 }
                             }
                         ]

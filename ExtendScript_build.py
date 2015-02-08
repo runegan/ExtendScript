@@ -1,13 +1,12 @@
 import os
+import re
 import sys
 import subprocess
 import json
-from pprint import pprint
 
-script, file_handle, packages = sys.argv
+script, currentPath, currentFileName, packages = sys.argv
 
 buildFolder = packages+'/ExtendScript'
-
 
 # Get default settings
 with open(buildFolder+'/ExtendScript.sublime-settings') as settingsFile:
@@ -28,22 +27,31 @@ if os.path.exists(user_settingsFile):
 				settings[setting] = user_settings[setting]
 
 
-if not os.path.exists(file_handle):
+file_path = currentPath+'/'+currentFileName
+
+
+if not os.path.exists(file_path):
 	print 'The file must be saved first to be built'
 
-else:
-	with open(file_handle, 'r') as file_handle:
-		file_string = file_handle.read().decode("utf-8-sig")
-		file_handle.close()
+else:	
+	with open(file_path, 'r') as file_handleFile:
+		file_string = file_handleFile.read().decode("utf-8-sig")
+		file_handleFile.close()
 
+		
 		file_output = ""
 
+		for line in file_string.splitlines():
+			if re.match(r'.*#target', line):
+				targetApp = re.sub(r'.*#target \"(.*)\";?', r'\1', line)
+				print "Target app is: " + targetApp
+				break
 
-		appleScriptFile = packages+'/ExtendScript/run.scpt'
+		# appleScript_path = packages+'/ExtendScript/run.scpt'
 
-		subprocess.call('arch -x86_64 '
-			'osascript "'+appleScriptFile+'" "'+file_handle+'"',
-			shell=True)
+		# subprocess.call('arch -x86_64 '
+		# 	'osascript "'+appleScript_path+'" "'+file_path+'"',
+		# 	shell=True)
 
 
-		print 'done'
+		print 'Done'

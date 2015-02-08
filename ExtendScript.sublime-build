@@ -1,5 +1,5 @@
 {
 	"selector" : "source.js",
-	"cmd" : ["python '${packages}/ExtendScript/ExtendScript_build.py' '${file_path}' '${file_name}' '${packages}'"],
+	"cmd" : ["python -u '${packages}/ExtendScript/ExtendScript_build.py' '${file_path}' '${file_name}' '${packages}'"],
 	"shell" : "true"
 }

@@ -35,6 +35,8 @@ else:
 
         else:
 
+            appleScripts_path = packages+'/ExtendScript/Applescript'
+            
             appAE = ['after effects', 'after-effects', 'aftereffects', 'ae']
             appPS = ['photoshop', 'ps']
             appAI = ['illustrator', 'ai']
@@ -43,23 +45,27 @@ else:
             targetApp = targetApp.lower()
 
             if targetApp in appAE:
-                targetApp = 'After Effects'
+                targetApp = 'AE'
+                appleScriptFile = appleScripts_path+'/Run'+targetApp+'.scpt'
 
             elif targetApp in appPS:
-                targetApp = 'Photoshop'
+                targetApp = 'PS'
+                appleScriptFile = appleScripts_path+'/Run'+targetApp+'.scpt'
 
             elif targetApp in appAI:
-                targetApp = 'Illustrator'
+                targetApp = 'AI'
+                appleScriptFile = appleScripts_path+'/Run'+targetApp+'.scpt'
+
 
             elif targetApp in appID:
-                targetApp = 'InDesign'
+                targetApp = 'ID'
+                appleScriptFile = appleScripts_path+'/Run'+targetApp+'.scpt'
 
             print "Target app is: " + targetApp
+            print appleScriptFile
 
-            # appleScript_path = packages+'/ExtendScript/run.scpt'
-
-            # subprocess.call('arch -x86_64 '
-            #   'osascript "'+appleScript_path+'" "'+file_path+'"',
-            #   shell=True)
+            subprocess.call('arch -x86_64 '
+              'osascript "'+appleScriptFile+'" "'+file_path+'"',
+              shell=True)
 
             print 'Done'

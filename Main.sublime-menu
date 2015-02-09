@@ -19,14 +19,6 @@
                                 {
                                     "file": "${packages}/ExtendScript/ExtendScript.sublime-settings"
                                 }
-                            },
-                            {
-                                "caption": "ExtendScript Settings – User",
-                                "command": "open_file",
-                                "args":
-                                {
-                                    "file": "${packages}/User/ExtendScript.sublime-settings"
-                                }
                             }
                         ]
                     }

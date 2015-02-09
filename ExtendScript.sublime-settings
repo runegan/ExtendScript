@@ -4,10 +4,8 @@
   "ai_path": "/Applications/Adobe Illustrator CC 2014/Scripts/",
   "id_path": "/Applications/Adobe InDesign CC 2014/Scripts/",
 
-  
-  "default_app": "ae",
 
-  "use_default": true,
+  "default_app": "ae",
 
   
   "compile_includes": true,

@@ -4,6 +4,8 @@ import sys
 import subprocess
 import json
 
+print 'Building ExtendScript...'
+
 script, currentPath, currentFileName, packages = sys.argv
 
 buildFolder = packages+'/ExtendScript'
@@ -22,50 +24,73 @@ else:
     with open(file_path, 'r') as file_handleFile:
         file_string = file_handleFile.read().decode("utf-8-sig")
 
-        targetApp = settings['default_app']
+        def makeReplacements(line):
+            output = line
+
+            if settings['compile_includes']:
+                if re.match(r'.*#include', line):
+                    output = replaceIncludes(line)
+
+            if settings['set_debug_false']:
+                if re.match(r'.*debug = .*', line):
+                    output = replaceDebug(line)
+
+            return output
+
+        def replaceIncludes(line):
+            path = re.sub(r'.*#include \"(.*)\";?', r'\1', line)
+            path = currentPath + "/" + path
+            with open(os.path.abspath(path)) as f:
+                fileContent = f.read()
+
+            return fileContent
+
+        def replaceDebug(line):
+            return re.sub(r'debug = true', r'debug = false', line)
+
+        targetApp = ""
+        file_output = ""
 
         for line in file_string.splitlines():
-            if re.match(r'.*#target', line):
-                regex = r'.*#target [\"\']?([^\"\']*)[\"\']?;?'
+            # Check if line includes target and
+            # then extract the words after the
+            # #target statment to variable targetApp
+            if re.match(r'.*#target', line) and targetApp == "":
+                regex = r'.*#target [\"\']?([^\"\';]*)[\"\']?;?'
                 targetApp = re.sub(regex, r'\1', line)
-                break
+
+            file_output = file_output + makeReplacements(line) + '\n'
 
         if targetApp == "":
-            print "Error: No target app"
+            targetApp = settings['default_app']
 
-        else:
+        # Find target app if written in other ways
+        appAE = ['after effects', 'after-effects', 'aftereffects', 'ae']
+        appPS = ['photoshop', 'ps']
+        appAI = ['illustrator', 'ai']
+        appID = ['indesign', 'id']
 
-            appleScripts_path = packages+'/ExtendScript/Applescript'
-            
-            appAE = ['after effects', 'after-effects', 'aftereffects', 'ae']
-            appPS = ['photoshop', 'ps']
-            appAI = ['illustrator', 'ai']
-            appID = ['indesign', 'id']
+        targetApp = targetApp.lower()
 
-            targetApp = targetApp.lower()
+        if targetApp in appAE:
+            targetApp = 'AE'
 
-            if targetApp in appAE:
-                targetApp = 'AE'
-                appleScriptFile = appleScripts_path+'/Run'+targetApp+'.scpt'
+        elif targetApp in appPS:
+            targetApp = 'PS'
 
-            elif targetApp in appPS:
-                targetApp = 'PS'
-                appleScriptFile = appleScripts_path+'/Run'+targetApp+'.scpt'
+        elif targetApp in appAI:
+            targetApp = 'AI'
 
-            elif targetApp in appAI:
-                targetApp = 'AI'
-                appleScriptFile = appleScripts_path+'/Run'+targetApp+'.scpt'
+        elif targetApp in appID:
+            targetApp = 'ID'
 
+        # Do script
+        appleScripts_path = packages+'/ExtendScript/Applescript'
+        appleScriptFile = appleScripts_path+'/Run'+targetApp+'.scpt'
 
-            elif targetApp in appID:
-                targetApp = 'ID'
-                appleScriptFile = appleScripts_path+'/Run'+targetApp+'.scpt'
+        subprocess.call(
+            'arch -x86_64 '
+            'osascript "'+appleScriptFile+'" "'+file_path+'"',
+            shell=True)
 
-            print "Target app is: " + targetApp
-            print appleScriptFile
-
-            subprocess.call('arch -x86_64 '
-              'osascript "'+appleScriptFile+'" "'+file_path+'"',
-              shell=True)
-
-            print 'Done'
+        print 'Done'

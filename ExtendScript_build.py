@@ -70,7 +70,7 @@ else:
         if targetApp in apps:
             # Do script
             appleScripts_path = packages+'/ExtendScript/Applescript'
-            appleScriptFile = appleScripts_path+'/Run'+targetApp+'.scpt'
+            appleScriptFile = appleScripts_path+'/run_'+targetApp+'.scpt'
 
             subprocess.call(
                 'arch -x86_64 '

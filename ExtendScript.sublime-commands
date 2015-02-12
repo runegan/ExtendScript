@@ -14,7 +14,7 @@
   {
     "caption": "ExtendScript: Build for InDesign",
     "command": "build_for_indesign"
-  }
+  },
   {
     "caption": "ExtendScript: Open in Toolkit",
     "command": "open_estk"

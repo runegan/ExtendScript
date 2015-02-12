@@ -95,5 +95,5 @@ class OpenEstk(ExtendScriptCommand):
     def run(self, edit):
         self.init()
         subprocess.call(
-            'open -a "ExtendScript Toolkit" '+self.currentPath,
+            'open -a "ExtendScript Toolkit" '+self.currentFile,
             shell=True)

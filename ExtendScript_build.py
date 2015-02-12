@@ -64,33 +64,23 @@ else:
         if targetApp == "":
             targetApp = settings['default_app']
 
-        # Find target app if written in other ways
-        appAE = ['after effects', 'after-effects', 'aftereffects', 'ae']
-        appPS = ['photoshop', 'ps']
-        appAI = ['illustrator', 'ai']
-        appID = ['indesign', 'id']
+        # Check target app
+        apps = ['aftereffects', 'photoshop', 'illustrator', 'indesign']
+        
+        if targetApp in apps:
+            # Do script
+            appleScripts_path = packages+'/ExtendScript/Applescript'
+            appleScriptFile = appleScripts_path+'/Run'+targetApp+'.scpt'
 
-        targetApp = targetApp.lower()
+            subprocess.call(
+                'arch -x86_64 '
+                'osascript "'+appleScriptFile+'" "'+file_path+'"',
+                shell=True)
 
-        if targetApp in appAE:
-            targetApp = 'AE'
+            print 'Done'
 
-        elif targetApp in appPS:
-            targetApp = 'PS'
-
-        elif targetApp in appAI:
-            targetApp = 'AI'
-
-        elif targetApp in appID:
-            targetApp = 'ID'
-
-        # Do script
-        appleScripts_path = packages+'/ExtendScript/Applescript'
-        appleScriptFile = appleScripts_path+'/Run'+targetApp+'.scpt'
-
-        subprocess.call(
-            'arch -x86_64 '
-            'osascript "'+appleScriptFile+'" "'+file_path+'"',
-            shell=True)
-
-        print 'Done'
+        else:
+            print 'Error: #Target: "'+targetApp+'" not recognised'
+            print 'Target must be one of:'
+            for app in apps:
+                print app

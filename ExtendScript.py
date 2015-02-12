@@ -90,3 +90,10 @@ class BuildForAfterEffects(ExtendScriptCommand):
         self.init()
         self.copyToSoftwareFolder('ae')
         self.compileEsFile()
+
+class OpenEstk(ExtendScriptCommand):
+    def run(self, edit):
+        self.init()
+        subprocess.call(
+            'open -a "ExtendScript Toolkit" '+self.currentPath,
+            shell=True)

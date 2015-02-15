@@ -18,5 +18,9 @@
   {
     "caption": "ExtendScript: Open in Toolkit",
     "command": "open_estk"
+  },
+  {
+    "caption": "ExtendScript: Create file",
+    "command": "create_file"
   }
 ]

@@ -24,30 +24,6 @@ else:
     with open(file_path, 'r') as file_handleFile:
         file_string = file_handleFile.read().decode("utf-8-sig")
 
-        def makeReplacements(line):
-            output = line
-
-            if settings['compile_includes']:
-                if re.match(r'.*#include', line):
-                    output = replaceIncludes(line)
-
-            if settings['set_debug_false']:
-                if re.match(r'.*debug = .*', line):
-                    output = replaceDebug(line)
-
-            return output
-
-        def replaceIncludes(line):
-            path = re.sub(r'.*#include \"(.*)\";?', r'\1', line)
-            path = currentPath + "/" + path
-            with open(os.path.abspath(path)) as f:
-                fileContent = f.read()
-
-            return fileContent
-
-        def replaceDebug(line):
-            return re.sub(r'debug = true', r'debug = false', line)
-
         targetApp = ""
         file_output = ""
 
@@ -59,14 +35,12 @@ else:
                 regex = r'.*#target [\"\']?([^\"\';]*)[\"\']?;?'
                 targetApp = re.sub(regex, r'\1', line)
 
-            file_output = file_output + makeReplacements(line) + '\n'
-
         if targetApp == "":
             targetApp = settings['default_app']
 
         # Check target app
         apps = ['aftereffects', 'photoshop', 'illustrator', 'indesign']
-        
+
         if targetApp in apps:
             # Do script
             appleScripts_path = packages+'/ExtendScript/Applescript'
